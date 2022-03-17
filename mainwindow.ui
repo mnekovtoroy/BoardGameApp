@@ -29,9 +29,13 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #FFFFFFFF</string>
+   <string notr="true">background-color: #FFFFFF;
+color: #000000;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QFrame" name="SideMenu">
     <property name="geometry">
      <rect>
@@ -42,7 +46,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #D9D9D9</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -54,14 +58,13 @@
      <property name="geometry">
       <rect>
        <x>7</x>
-       <y>18</y>
-       <width>156</width>
-       <height>192</height>
+       <y>13</y>
+       <width>186</width>
+       <height>300</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font-size:  22px;
-</string>
+      <string notr="true"/>
      </property>
     </widget>
    </widget>
@@ -74,12 +77,15 @@
       <height>500</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <widget class="QWidget" name="Plays">
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>100</y>
+        <x>150</x>
+        <y>150</y>
         <width>63</width>
         <height>20</height>
        </rect>

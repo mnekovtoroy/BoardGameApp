@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFontDatabase>
+#include <stylehelper.h>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -8,14 +9,21 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //SideList setup
     ui->SideList->addItem("Партии");
     ui->SideList->addItem("Игры");
     ui->SideList->addItem("Игроки");
     ui->SideList->addItem("Статистика");
-    ui->SideList->addItem("Настроечки");
+    ui->SideList->addItem("Настройки");
+    ui->SideList->setCurrentItem(ui->SideList->item(0));
 
-    int id = QFontDatabase::addApplicationFont(":/source/fonts/Montserrat-Regular.ttf");
-    qDebug() << QFontDatabase::applicationFontFamilies(id).at(0);
+    //adding fonts
+    QFontDatabase::addApplicationFont(":/source/fonts/Montserrat-Medium.ttf");
+    QFontDatabase::addApplicationFont(":/source/fonts/Montserrat-Regular.ttf");
+
+    setInterfaceStyle();
+
 }
 
 MainWindow::~MainWindow()
@@ -26,10 +34,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_SideList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
-    current->setForeground(QColor::fromRgb(0, 0, 0));
-    if (previous!=nullptr) {
-        previous->setForeground(QColor::fromRgb(119, 119, 119));
-    }
     if (current->text()=="Партии") {
         ui->Window->setCurrentWidget(ui->Plays);
     } else if (current->text()=="Игры") {
@@ -41,5 +45,10 @@ void MainWindow::on_SideList_currentItemChanged(QListWidgetItem *current, QListW
     } else if (current->text()=="Настройки") {
         ui->Window->setCurrentWidget(ui->Settings);
     }
+}
+
+void MainWindow::setInterfaceStyle()
+{
+    ui->SideMenu->setStyleSheet(stylehelper::getSideMenuStyle());
 }
 

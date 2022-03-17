@@ -21,5 +21,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    void setInterfaceStyle();
 };
 #endif // MAINWINDOW_H

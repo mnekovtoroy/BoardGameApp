@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    stylehelper.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    stylehelper.h
 
 FORMS += \
     mainwindow.ui
@@ -30,3 +32,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    .gitignore
