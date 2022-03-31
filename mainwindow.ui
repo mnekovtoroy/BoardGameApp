@@ -81,18 +81,80 @@ color: #000000;</string>
      <string notr="true"/>
     </property>
     <widget class="QWidget" name="Plays">
-     <widget class="QLabel" name="label">
+     <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>150</x>
-        <y>150</y>
-        <width>63</width>
-        <height>20</height>
+        <x>10</x>
+        <y>30</y>
+        <width>581</width>
+        <height>461</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Партии</string>
-      </property>
+      <layout class="QVBoxLayout" name="playsLayout">
+       <item>
+        <layout class="QHBoxLayout" name="head">
+         <item>
+          <widget class="QLabel" name="date">
+           <property name="text">
+            <string>Дата</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="game">
+           <property name="text">
+            <string>Игра</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="players">
+           <property name="text">
+            <string>Игроки</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="victor">
+           <property name="text">
+            <string>Победитель</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="comment">
+           <property name="text">
+            <string>Комментарий</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="addNewPlay">
+         <property name="text">
+          <string>Добавить новую партию</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QScrollArea" name="playList">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>577</width>
+            <height>392</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="Games">
