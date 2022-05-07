@@ -158,18 +158,52 @@ color: #000000;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="Games">
-     <widget class="QLabel" name="label_2">
+     <widget class="QStackedWidget" name="gamesWidget">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>150</y>
-        <width>63</width>
-        <height>20</height>
+        <x>25</x>
+        <y>25</y>
+        <width>550</width>
+        <height>450</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Игры</string>
-      </property>
+      <widget class="QWidget" name="gamesListWidget">
+       <widget class="QWidget" name="verticalLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>541</width>
+          <height>441</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="gamesListLayout">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
+         </property>
+         <item>
+          <widget class="QPushButton" name="newGameButton">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="gamesList"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_2"/>
      </widget>
     </widget>
     <widget class="QWidget" name="Players">
