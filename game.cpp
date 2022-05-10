@@ -10,7 +10,7 @@ Game::Game()
     description = "";
     min_players = 1;
     max_players = 4;
-    win_type = "";
+    win_type = "VP";
     game_id = ++last_game_id;
 
 }
