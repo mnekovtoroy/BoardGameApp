@@ -18,11 +18,11 @@ public:
 private slots:
     void on_SideList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
-    void on_gameBackButton_pressed();
-
     void gameCard_setGame(int game_id);
 
     void on_newGameButton_clicked();
+
+    void on_gameBackButton_clicked();
 
 private:
     Ui::MainWindow *ui;

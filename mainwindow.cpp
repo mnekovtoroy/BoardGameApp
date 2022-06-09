@@ -1,9 +1,32 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFontDatabase>
+#include <QTextEdit>
 #include <stylehelper.h>
 #include "game.h"
+#include <QDebug>
 
+
+
+void clearLayout(QLayout *layout)
+{
+    while (layout->count()>0) {
+        QLayoutItem *item = layout->itemAt(0);
+        if (item->layout()) {
+           clearLayout(item->layout());
+           delete item->layout();
+           continue;
+        }
+        if (item->widget()) {
+            delete item->widget();
+            continue;
+        }
+        if (item->spacerItem()) {
+            layout->removeItem(item);
+            continue;
+        }
+    }
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -56,12 +79,6 @@ void MainWindow::setInterfaceStyle()
     ui->SideMenu->setStyleSheet(stylehelper::getSideMenuStyle());
 }
 
-
-void MainWindow::on_gameBackButton_pressed()
-{
-    ui->gamesWidget->setCurrentWidget(ui->gamesListWidget);
-}
-
 void MainWindow::on_newGameButton_clicked()
 {
     emit send_game_ID(1);
@@ -86,7 +103,8 @@ void MainWindow::gameCard_setGame(int game_id)
     ui->gameName->setReadOnly(true);
     ui->gameID->setText(QString::number(game->get_game_id()));
 
-    QHBoxLayout *num_of_pl_Layout = new QHBoxLayout(ui->gameCard);
+    //Number of players setup
+    QHBoxLayout *num_of_pl_Layout = new QHBoxLayout();
 
     QLabel *num_of_players_label = new QLabel("Кол-во игроков: ", ui->gameCard);
     num_of_pl_Layout->addWidget(num_of_players_label);
@@ -104,7 +122,37 @@ void MainWindow::gameCard_setGame(int game_id)
     max_players->setReadOnly(true);
     num_of_pl_Layout->addWidget(max_players);
 
-    ui->gameRightColomnLayout->addLayout(num_of_pl_Layout);
+    ui->gameRightColumnLayout->addLayout(num_of_pl_Layout);
+
+    //Wintype setup
+    QHBoxLayout *wintype_Layout = new QHBoxLayout();
+
+    QLabel *wintype_Label = new QLabel("Тип победы: ", ui->gameCard);
+    wintype_Layout->addWidget(wintype_Label);
+
+    QLabel *wintype = new QLabel(game->get_win_type(),ui->gameCard);
+    wintype_Layout->addWidget(wintype);
+
+    ui->gameRightColumnLayout->addLayout(wintype_Layout);
+
+    //Description setup
+    if (game->get_description()!="") {
+        QTextEdit *description = new QTextEdit(ui->gameCard);
+        description->setText(game->get_description());
+        description->setReadOnly(true);
+        ui->gameLeftColumnLayout->addWidget(description);
+    }
+
+    //Spacers setups
+    ui->gameRightColumnLayout->addStretch();
+    ui->gameLeftColumnLayout->addStretch();
 }
 
+void MainWindow::on_gameBackButton_clicked()
+{
+    ui->gamesWidget->setCurrentWidget(ui->gamesListWidget);
+    //Clear columns so they wont duplicate next time
+    clearLayout(ui->gameRightColumnLayout);
+    clearLayout(ui->gameLeftColumnLayout);
+}
 
