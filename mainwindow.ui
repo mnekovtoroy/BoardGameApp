@@ -168,7 +168,7 @@ color: #000000;</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="gamesListWidget">
        <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -201,21 +201,32 @@ color: #000000;</string>
           </widget>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="gamesList">
-           <item>
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+          <widget class="QScrollArea" name="gamesListArea">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>547</width>
+              <height>401</height>
+             </rect>
+            </property>
+            <widget class="QWidget" name="verticalLayoutWidget_4">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>551</width>
+               <height>401</height>
+              </rect>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
+             <layout class="QVBoxLayout" name="gamesList"/>
+            </widget>
+           </widget>
+          </widget>
          </item>
         </layout>
        </widget>

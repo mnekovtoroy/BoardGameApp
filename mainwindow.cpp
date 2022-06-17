@@ -4,7 +4,10 @@
 #include <QTextEdit>
 #include <stylehelper.h>
 #include "game.h"
+#include "itembutton.h"
 #include <QDebug>
+#include <QtSql>
+#include <stdexcept>
 
 
 
@@ -48,9 +51,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     connect(this,SIGNAL(send_game_ID(int)),this,SLOT(gameCard_setGame(int)));
+    connect(this,SIGNAL(game_tab_selected()),this,SLOT(load_games_list()));
 
     setInterfaceStyle();
-
 }
 
 MainWindow::~MainWindow()
@@ -64,6 +67,7 @@ void MainWindow::on_SideList_currentItemChanged(QListWidgetItem *current, QListW
     if (current->text()=="Партии") {
         ui->Window->setCurrentWidget(ui->Plays);
     } else if (current->text()=="Игры") {
+        emit game_tab_selected();
         ui->Window->setCurrentWidget(ui->Games);
     } else if (current->text()=="Игроки") {
         ui->Window->setCurrentWidget(ui->Players);
@@ -82,7 +86,6 @@ void MainWindow::setInterfaceStyle()
 void MainWindow::on_newGameButton_clicked()
 {
     emit send_game_ID(1);
-    ui->gamesWidget->setCurrentWidget(ui->gameCard);
 }
 
 //Set game
@@ -146,6 +149,9 @@ void MainWindow::gameCard_setGame(int game_id)
     //Spacers setups
     ui->gameRightColumnLayout->addStretch();
     ui->gameLeftColumnLayout->addStretch();
+
+
+    ui->gamesWidget->setCurrentWidget(ui->gameCard);
 }
 
 void MainWindow::on_gameBackButton_clicked()
@@ -156,3 +162,32 @@ void MainWindow::on_gameBackButton_clicked()
     clearLayout(ui->gameLeftColumnLayout);
 }
 
+
+//Load game list to the main game tab
+void MainWindow::load_games_list()
+{
+    QSqlQuery query;
+    QString queryStr;
+
+    queryStr = "SELECT game.game_id, game.name "
+               "FROM game "
+               "ORDER BY game_id ASC;";
+
+    if (!query.exec(queryStr)) {
+        qDebug() << query.lastError();
+        throw std::invalid_argument("Unable to select from `game` table");
+    }
+
+    QSqlRecord rec = query.record();
+
+    while(query.next()) {
+        ItemButton* game = new ItemButton(query.value(rec.indexOf("game_id")).toInt());
+        game->setText(query.value(rec.indexOf("name")).toString());
+        ui->gamesList->addWidget(game);
+        connect(game,SIGNAL(send_ID(int)),this,SLOT(gameCard_setGame(int)));
+    }
+
+    ui->gamesList->addStretch();
+
+
+}

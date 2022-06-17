@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     game.cpp \
+    itembutton.cpp \
     main.cpp \
     mainwindow.cpp \
     stylehelper.cpp
 
 HEADERS += \
     game.h \
+    itembutton.h \
     mainwindow.h \
     stylehelper.h
 

@@ -24,11 +24,14 @@ private slots:
 
     void on_gameBackButton_clicked();
 
+    void load_games_list();
+
 private:
     Ui::MainWindow *ui;
     void setInterfaceStyle();
 
 signals:
     void send_game_ID(int);
+    void game_tab_selected();
 };
 #endif // MAINWINDOW_H
