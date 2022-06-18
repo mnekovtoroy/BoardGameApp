@@ -196,7 +196,7 @@ color: #000000;</string>
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Новая партия</string>
+            <string>Добавить игру</string>
            </property>
           </widget>
          </item>
@@ -310,19 +310,6 @@ color: #000000;</string>
               </size>
              </property>
             </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="gameChangeButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Изменить</string>
-             </property>
-            </widget>
            </item>
           </layout>
          </item>

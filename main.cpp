@@ -99,7 +99,7 @@ bool DBCreate() {
                "    expantion_name VARCHAR(50),"
                "    FOREIGN KEY(play_id) REFERENCES play(play_id) ON DELETE CASCADE,"
                "    FOREIGN KEY(game_id) REFERENCES game(game_id) ON DELETE NO ACTION,"
-               "    FOREIGN KEY(expantion_name) REFERENCES expantion(name) ON DELETE NO ACTION"
+               //"    FOREIGN KEY(expantion_name) REFERENCES expantion(name) ON DELETE NO ACTION"
                ");"
             ;
     if (!query.exec(queryStr)) {

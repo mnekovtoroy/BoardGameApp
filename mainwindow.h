@@ -26,6 +26,12 @@ private slots:
 
     void load_games_list();
 
+    void on_gameChangeButton_clicked();
+
+    void on_cancelGameChanges_clicked();
+    void save_game();
+    void delete_game();
+
 private:
     Ui::MainWindow *ui;
     void setInterfaceStyle();

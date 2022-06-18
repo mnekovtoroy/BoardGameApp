@@ -12,8 +12,7 @@ private:
     int max_players;
     QString win_type;
     int game_id;
-
-    static int last_game_id;
+    bool exists_in_DB = false;
 
     void set_from_DB(int game_id); //Set all fields from a database
 
