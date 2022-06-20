@@ -67,9 +67,9 @@ bool DBCreate() {
     }
 
     queryStr = "CREATE TABLE IF NOT EXISTS expantion("
+               "    expantion_id INT PRIMARY KEY,"
                "    game_id INT,"
                "    name VARCHAR(50),"
-               "    PRIMARY KEY(game_id, name),"
                "    FOREIGN KEY(game_id) REFERENCES game(game_id) ON DELETE CASCADE"
                ");"
             ;
@@ -96,10 +96,10 @@ bool DBCreate() {
                "    pge_relationship_id INT PRIMARY KEY,"
                "    play_id INT NOT NULL,"
                "    game_id INT NOT NULL,"
-               "    expantion_name VARCHAR(50),"
+               "    expantion_id INT,"
                "    FOREIGN KEY(play_id) REFERENCES play(play_id) ON DELETE CASCADE,"
                "    FOREIGN KEY(game_id) REFERENCES game(game_id) ON DELETE NO ACTION,"
-               //"    FOREIGN KEY(expantion_name) REFERENCES expantion(name) ON DELETE NO ACTION"
+               "    FOREIGN KEY(expantion_id) REFERENCES expantion(expantion_id) ON DELETE NO ACTION"
                ");"
             ;
     if (!query.exec(queryStr)) {
