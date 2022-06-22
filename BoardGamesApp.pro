@@ -10,16 +10,22 @@ CONFIG += c++11
 
 SOURCES += \
     game.cpp \
+    gamecard.cpp \
+    infocard.cpp \
     itembutton.cpp \
     main.cpp \
     mainwindow.cpp \
-    stylehelper.cpp
+    stylehelper.cpp \
+    usefulfunctions.cpp
 
 HEADERS += \
     game.h \
+    gamecard.h \
+    infocard.h \
     itembutton.h \
     mainwindow.h \
-    stylehelper.h
+    stylehelper.h \
+    usefulfunctions.h
 
 FORMS += \
     mainwindow.ui
@@ -38,4 +44,5 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    .gitignore
+    .gitignore \
+    todolist.txt

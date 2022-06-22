@@ -8,28 +8,9 @@
 #include <QDebug>
 #include <QtSql>
 #include <stdexcept>
+#include "usefulfunctions.h"
 
 
-
-void clearLayout(QLayout *layout, int from = 0)
-{
-    while (layout->count()>from) {
-        QLayoutItem *item = layout->itemAt(from);
-        if (item->layout()) {
-           clearLayout(item->layout());
-           delete item->layout();
-           continue;
-        }
-        if (item->widget()) {
-            delete item->widget();
-            continue;
-        }
-        if (item->spacerItem()) {
-            layout->removeItem(item);
-            continue;
-        }
-    }
-}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -55,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     load_games_list();
 
     setInterfaceStyle();
+
 }
 
 MainWindow::~MainWindow()
