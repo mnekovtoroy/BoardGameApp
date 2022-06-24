@@ -66,8 +66,18 @@ GameCard::GameCard()
 
 }
 
+GameCard::~GameCard()
+{
+    if (game != nullptr)  {
+        delete game; // Clear game pointer
+    }
+}
+
 void GameCard::set_game(int game_id = 0)
 {
+    if (game != nullptr)  {
+        delete game; // Clear game pointer
+    }
     if (game_id == 0) {
         game = new Game; //If "New Game" Button pressed
         game->update_DB();
@@ -84,7 +94,7 @@ void GameCard::set_game(int game_id = 0)
     this->findChild<QLineEdit*>("max_players")->setText(QString::number(game->get_max_players()));
 
     //Wintype
-    this->findChild<QLabel*>("wintype")->setText(QString::number(game->get_max_players()));
+    this->findChild<QLabel*>("wintype")->setText(game->get_win_type());
 
     //Decription
     this->findChild<QTextEdit*>("description")->setText(game->get_description());

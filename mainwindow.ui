@@ -168,7 +168,7 @@ color: #000000;</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="gamesListWidget">
        <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -231,101 +231,7 @@ color: #000000;</string>
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="gameCard">
-       <widget class="QWidget" name="verticalLayoutWidget_3">
-        <property name="geometry">
-         <rect>
-          <x>-1</x>
-          <y>0</y>
-          <width>551</width>
-          <height>441</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="gameCardLayout">
-         <item>
-          <widget class="QPushButton" name="gameBackButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>&lt; Назад</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="gameHeaderLayout">
-           <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
-           </property>
-           <item>
-            <widget class="QLineEdit" name="gameName">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="maxLength">
-              <number>50</number>
-             </property>
-             <property name="readOnly">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="gameID">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>ID</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="gameHeaderSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Expanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="gameTableLayout">
-           <item>
-            <layout class="QVBoxLayout" name="gameLeftColumnLayout"/>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="gameRightColumnLayout"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </widget>
+      <widget class="GameCard" name="gameCard"/>
      </widget>
     </widget>
     <widget class="QWidget" name="Players">
@@ -376,6 +282,14 @@ color: #000000;</string>
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GameCard</class>
+   <extends>QWidget</extends>
+   <header>gamecard.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

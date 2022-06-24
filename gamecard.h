@@ -12,6 +12,7 @@ private:
     Game* game;
 public:
     GameCard();
+    ~GameCard();
 
 public slots:
     void set_game(int game_id);

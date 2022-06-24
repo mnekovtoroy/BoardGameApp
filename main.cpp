@@ -128,10 +128,6 @@ int main(int argc, char *argv[])
     DBConnect();
     DBCreate();
 
-    GameCard* test = new GameCard();
-    test->set_game(1);
-    test->show();
-
     MainWindow window;
     window.show();
     return a.exec();
