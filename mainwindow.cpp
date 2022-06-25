@@ -34,7 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this,SIGNAL(send_game_ID(int)),ui->gameCard,SLOT(set_game(int)));
     connect(ui->gameCard,SIGNAL(gameCard_backButton_clicked()),this,SLOT(on_gameBackButton_clicked()));
 
-    load_games_list();
+    ui->gamesListWidget->update_items_list("game");
+    connect(ui->gamesListWidget, SIGNAL(itemSelected(int)),this,SLOT(game_selected(int)));
+
+    ui->gamesListWidget->set_addItem_text("Новая игра");
 
     setInterfaceStyle();
 
@@ -67,53 +70,15 @@ void MainWindow::setInterfaceStyle()
     ui->SideMenu->setStyleSheet(stylehelper::getSideMenuStyle());
 }
 
-void MainWindow::on_newGameButton_clicked()
+void MainWindow::game_selected(int id)
 {
-    emit send_game_ID(0);
-    show_gameCard();
+    emit send_game_ID(id);
+    ui->gamesWidget->setCurrentWidget(ui->gameCard);
 }
 
 void MainWindow::on_gameBackButton_clicked()
 {
-    load_games_list();
+    ui->gamesListWidget->update_items_list("game");
     ui->gamesWidget->setCurrentWidget(ui->gamesListWidget);
 }
 
-
-
-
-//Load game list to the main game tab
-void MainWindow::load_games_list()
-{
-    clearLayout(ui->gamesList); //Start from scrath
-
-    QSqlQuery query;
-    QString queryStr;
-
-    queryStr = "SELECT game.game_id, game.name "
-               "FROM game "
-               "ORDER BY game_id ASC;";
-
-    if (!query.exec(queryStr)) {
-        qDebug() << query.lastError();
-        throw std::invalid_argument("Unable to select from `game` table");
-    }
-
-    QSqlRecord rec = query.record();
-
-    //Fill up the table
-    while(query.next()) {
-        ItemButton* game = new ItemButton(query.value(rec.indexOf("game_id")).toInt());
-        game->setText(query.value(rec.indexOf("name")).toString());
-        ui->gamesList->addWidget(game);
-        connect(game,SIGNAL(send_ID(int)),ui->gameCard,SLOT(set_game(int)));
-        connect(game,SIGNAL(clicked()),this,SLOT(show_gameCard()));
-    }
-
-    ui->gamesList->addStretch();
-}
-
-void MainWindow::show_gameCard()
-{
-    ui->gamesWidget->setCurrentWidget(ui->gameCard);
-}

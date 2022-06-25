@@ -170,71 +170,7 @@ color: #000000;</string>
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="gamesListWidget">
-       <widget class="QWidget" name="verticalLayoutWidget_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>551</width>
-          <height>441</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="gamesListLayout">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
-         </property>
-         <item>
-          <widget class="QPushButton" name="newGameButton">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Добавить игру</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QScrollArea" name="gamesListArea">
-           <property name="widgetResizable">
-            <bool>true</bool>
-           </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents_2">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>547</width>
-              <height>401</height>
-             </rect>
-            </property>
-            <widget class="QWidget" name="verticalLayoutWidget_4">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>551</width>
-               <height>401</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="gamesList">
-              <property name="sizeConstraint">
-               <enum>QLayout::SetDefaultConstraint</enum>
-              </property>
-             </layout>
-            </widget>
-           </widget>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
+      <widget class="ItemList" name="gamesListWidget"/>
       <widget class="GameCard" name="gameCard"/>
      </widget>
     </widget>
@@ -291,6 +227,12 @@ color: #000000;</string>
    <class>GameCard</class>
    <extends>QWidget</extends>
    <header>gamecard.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ItemList</class>
+   <extends>QWidget</extends>
+   <header>itemlist.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

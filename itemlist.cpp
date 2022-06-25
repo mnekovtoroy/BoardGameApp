@@ -27,9 +27,14 @@ ItemList::ItemList(QWidget *parent)
 
     layout->addWidget(itemsArea);
 
-    itemsArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn); //optional
+    //temsArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn); //optional
 
     connect(createNewItem,SIGNAL(send_ID(int)),this,SLOT(on_ItemButton_clicked(int)));
+}
+
+void ItemList::set_addItem_text(QString text)
+{
+    createNewItem->setText(text);
 }
 
 void ItemList::update_items_list(QString tableName)

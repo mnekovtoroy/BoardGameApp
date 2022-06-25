@@ -128,10 +128,6 @@ int main(int argc, char *argv[])
     DBConnect();
     DBCreate();
 
-    ItemList* test = new ItemList();
-    test->update_items_list("player");
-    test->show();
-
     MainWindow window;
     window.show();
     return a.exec();

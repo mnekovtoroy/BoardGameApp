@@ -17,6 +17,8 @@ private:
 public:
     explicit ItemList(QWidget *parent = nullptr);
 
+    void set_addItem_text(QString text);
+
 public slots:
     void update_items_list(QString tableName);
 
