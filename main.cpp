@@ -6,7 +6,7 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include <QDebug>
-#include "gamecard.h"
+#include "itemlist.h"
 
 //Database connect
 static bool DBConnect() {
@@ -127,6 +127,10 @@ int main(int argc, char *argv[])
 
     DBConnect();
     DBCreate();
+
+    ItemList* test = new ItemList();
+    test->update_items_list("player");
+    test->show();
 
     MainWindow window;
     window.show();

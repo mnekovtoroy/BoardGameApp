@@ -13,6 +13,7 @@ SOURCES += \
     gamecard.cpp \
     infocard.cpp \
     itembutton.cpp \
+    itemlist.cpp \
     main.cpp \
     mainwindow.cpp \
     stylehelper.cpp \
@@ -23,6 +24,7 @@ HEADERS += \
     gamecard.h \
     infocard.h \
     itembutton.h \
+    itemlist.h \
     mainwindow.h \
     stylehelper.h \
     usefulfunctions.h

@@ -223,7 +223,11 @@ color: #000000;</string>
                <height>401</height>
               </rect>
              </property>
-             <layout class="QVBoxLayout" name="gamesList"/>
+             <layout class="QVBoxLayout" name="gamesList">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+             </layout>
             </widget>
            </widget>
           </widget>

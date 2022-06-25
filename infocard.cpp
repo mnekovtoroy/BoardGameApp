@@ -10,7 +10,7 @@ InfoCard::InfoCard(QWidget *parent)
     backButton->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
     cardLayout->addWidget(backButton);
 
-    headerLayout = new QHBoxLayout(this);
+    headerLayout = new QHBoxLayout();
     name = new QLineEdit(this);
     name->setReadOnly(true);
     name->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Fixed);
@@ -24,9 +24,9 @@ InfoCard::InfoCard(QWidget *parent)
 
     cardLayout->addLayout(headerLayout);
 
-    tableLayout = new QHBoxLayout(this);
-    leftColumn = new QVBoxLayout(this);
-    rightColumn = new QVBoxLayout(this);
+    tableLayout = new QHBoxLayout();
+    leftColumn = new QVBoxLayout();
+    rightColumn = new QVBoxLayout();
     tableLayout->addLayout(leftColumn);
     tableLayout->addLayout(rightColumn);
     cardLayout->addLayout(tableLayout);
