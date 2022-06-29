@@ -6,7 +6,7 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include <QDebug>
-#include "itemlist.h"
+#include "playercard.h"
 
 //Database connect
 static bool DBConnect() {
@@ -47,8 +47,8 @@ bool DBCreate() {
                "    player_id INT PRIMARY KEY,"
                "    name VARCHAR(50) NOT NULL,"
                "    description VARCHAR(200),"
-               "    favourite_game_id INT,"
-               "    FOREIGN KEY(favourite_game_id) REFERENCES game(game_id) ON DELETE SET NULL"
+               "    favorite_game_id INT,"
+               "    FOREIGN KEY(favorite_game_id) REFERENCES game(game_id) ON DELETE SET NULL"
                ");"
             ;
     if (!query.exec(queryStr)) {
@@ -127,6 +127,10 @@ int main(int argc, char *argv[])
 
     DBConnect();
     DBCreate();
+
+//    PlayerCard test;
+//    test.set_player(2);
+//    test.show();
 
     MainWindow window;
     window.show();

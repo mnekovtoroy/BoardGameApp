@@ -25,8 +25,6 @@ Game::Game()
     query.next();
     game_id = query.value(0).toInt() + 1;
     exists_in_DB = false;
-    //game_id = ++last_game_id;
-
 }
 
 Game::Game(int DB_id) {

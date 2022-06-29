@@ -7,4 +7,6 @@
 
 void clearLayout(QLayout *layout, int from = 0);
 
+int get_last_number(QString string);
+
 #endif // USEFULFUNCTIONS_H

@@ -17,10 +17,10 @@ public:
 
 private slots:
     void on_SideList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-
     void on_gameBackButton_clicked();
-
     void game_selected(int id);
+    void player_selected(int id);
+    void on_playerBackButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -29,5 +29,6 @@ private:
 signals:
     void send_game_ID(int);
     void game_tab_selected();
+    void send_player_ID(int);
 };
 #endif // MAINWINDOW_H

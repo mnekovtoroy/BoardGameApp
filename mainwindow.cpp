@@ -31,13 +31,27 @@ MainWindow::MainWindow(QWidget *parent)
     QFontDatabase::addApplicationFont(":/source/fonts/Montserrat-Regular.ttf");
 
 
+
+    //Games tab setup
+    ui->gamesListWidget->update_items_list("game");
+    connect(ui->gamesListWidget, SIGNAL(itemSelected(int)),this,SLOT(game_selected(int)));
+    ui->gamesListWidget->set_addItem_text("Новая игра");
+
     connect(this,SIGNAL(send_game_ID(int)),ui->gameCard,SLOT(set_game(int)));
     connect(ui->gameCard,SIGNAL(gameCard_backButton_clicked()),this,SLOT(on_gameBackButton_clicked()));
 
-    ui->gamesListWidget->update_items_list("game");
-    connect(ui->gamesListWidget, SIGNAL(itemSelected(int)),this,SLOT(game_selected(int)));
+    //Players tab setup
+    ui->playersListWidget->update_items_list("player");
+    connect(ui->playersListWidget,SIGNAL(itemSelected(int)),this,SLOT(player_selected(int)));
+    ui->playersListWidget->set_addItem_text("Новый игрок");
 
-    ui->gamesListWidget->set_addItem_text("Новая игра");
+    connect(this,SIGNAL(send_player_ID(int)),ui->playerCard,SLOT(set_player(int)));
+    connect(ui->playerCard,SIGNAL(playerCard_backButton_clicked()),this,SLOT(on_playerBackButton_clicked()));
+
+
+
+    //Players tab setup
+    ui->playersListWidget->update_items_list("player");
 
     setInterfaceStyle();
 
@@ -82,3 +96,14 @@ void MainWindow::on_gameBackButton_clicked()
     ui->gamesWidget->setCurrentWidget(ui->gamesListWidget);
 }
 
+void MainWindow::player_selected(int id)
+{
+    emit send_player_ID(id);
+    ui->playersWidget->setCurrentWidget(ui->playerCard);
+}
+
+void MainWindow::on_playerBackButton_clicked()
+{
+    ui->playersListWidget->update_items_list("player");
+    ui->playersWidget->setCurrentWidget(ui->playersListWidget);
+}

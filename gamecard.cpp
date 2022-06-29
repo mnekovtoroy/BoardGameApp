@@ -169,7 +169,6 @@ void GameCard::save_changes()
     game->update_DB();
 
     cancel_changes();
-    //load_games_list();
 }
 
 void GameCard::delete_game()
@@ -184,8 +183,6 @@ void GameCard::delete_game()
         qDebug() << query.lastError();
         throw std::invalid_argument("Unable to delete from `game` table");
     }
-
-    //load_games_list();
 
     backButton->show(); // show back button
     clearLayout(headerLayout,3); // delete cancel, delete and save buttons

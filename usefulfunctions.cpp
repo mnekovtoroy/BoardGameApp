@@ -1,4 +1,5 @@
 #include "usefulfunctions.h"
+#include <cmath>
 
 void clearLayout(QLayout *layout, int from)
 {
@@ -18,4 +19,16 @@ void clearLayout(QLayout *layout, int from)
             continue;
         }
     }
+}
+
+int get_last_number(QString string)
+{
+    int result = 0;
+    int i = 1;
+    while ((i<=string.size() && (string.at(string.size()-i).isNumber()))) {
+        int temp = (string.at(string.size()-i).unicode() - 48);
+        result += temp * pow(10,i-1);
+        i++;
+    }
+    return result;
 }

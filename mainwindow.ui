@@ -175,18 +175,20 @@ color: #000000;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="Players">
-     <widget class="QLabel" name="label_3">
+     <widget class="QStackedWidget" name="playersWidget">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>120</y>
-        <width>63</width>
-        <height>20</height>
+        <x>25</x>
+        <y>25</y>
+        <width>550</width>
+        <height>450</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Игроки</string>
+      <property name="currentIndex">
+       <number>0</number>
       </property>
+      <widget class="ItemList" name="playersListWidget"/>
+      <widget class="PlayerCard" name="playerCard"/>
      </widget>
     </widget>
     <widget class="QWidget" name="Statistics">
@@ -233,6 +235,12 @@ color: #000000;</string>
    <class>ItemList</class>
    <extends>QWidget</extends>
    <header>itemlist.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlayerCard</class>
+   <extends>QWidget</extends>
+   <header>playercard.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

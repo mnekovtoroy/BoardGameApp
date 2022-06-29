@@ -27,7 +27,6 @@ public:
 
     explicit InfoCard(QWidget *parent = nullptr);
 
-signals:
 };
 
 #endif // INFOCARD_H

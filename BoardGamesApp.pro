@@ -16,6 +16,8 @@ SOURCES += \
     itemlist.cpp \
     main.cpp \
     mainwindow.cpp \
+    player.cpp \
+    playercard.cpp \
     stylehelper.cpp \
     usefulfunctions.cpp
 
@@ -26,6 +28,8 @@ HEADERS += \
     itembutton.h \
     itemlist.h \
     mainwindow.h \
+    player.h \
+    playercard.h \
     stylehelper.h \
     usefulfunctions.h
 
