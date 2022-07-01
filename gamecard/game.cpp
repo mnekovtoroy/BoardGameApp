@@ -1,4 +1,4 @@
-#include "game.h"
+#include "./gamecard/game.h"
 #include <QtSql>
 #include <stdexcept>
 

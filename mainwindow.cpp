@@ -2,13 +2,13 @@
 #include "ui_mainwindow.h"
 #include <QFontDatabase>
 #include <QTextEdit>
-#include <stylehelper.h>
-#include "game.h"
-#include "itembutton.h"
+#include "./general/stylehelper.h"
+#include "./gamecard/game.h"
+#include "./general/itembutton.h"
 #include <QDebug>
 #include <QtSql>
 #include <stdexcept>
-#include "usefulfunctions.h"
+#include "./general/usefulfunctions.h"
 
 
 

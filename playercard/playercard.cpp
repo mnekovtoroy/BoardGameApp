@@ -1,6 +1,6 @@
-#include "playercard.h"
+#include "./playercard/playercard.h"
 #include <QtSql>
-#include "usefulfunctions.h"
+#include "./general/usefulfunctions.h"
 
 PlayerCard::PlayerCard()
 {

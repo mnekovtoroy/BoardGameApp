@@ -1,6 +1,6 @@
-#include "itemlist.h"
+#include "./general/itemlist.h"
 #include <QtSql>
-#include "usefulfunctions.h"
+#include "./general/usefulfunctions.h"
 
 ItemList::ItemList(QWidget *parent)
     : QWidget{parent}

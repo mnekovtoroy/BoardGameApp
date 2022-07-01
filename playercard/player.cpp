@@ -1,4 +1,4 @@
-#include "player.h"
+#include "./playercard/player.h"
 #include <QtSql>
 #include <stdexcept>
 #include <QDebug>

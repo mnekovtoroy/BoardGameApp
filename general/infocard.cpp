@@ -1,4 +1,4 @@
-#include "infocard.h"
+#include "./general/infocard.h"
 
 //Constructor
 InfoCard::InfoCard(QWidget *parent)

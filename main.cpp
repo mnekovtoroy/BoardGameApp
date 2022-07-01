@@ -6,7 +6,6 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include <QDebug>
-#include "playercard.h"
 
 //Database connect
 static bool DBConnect() {
@@ -127,10 +126,6 @@ int main(int argc, char *argv[])
 
     DBConnect();
     DBCreate();
-
-//    PlayerCard test;
-//    test.set_player(2);
-//    test.show();
 
     MainWindow window;
     window.show();

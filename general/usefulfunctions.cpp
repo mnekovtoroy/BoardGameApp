@@ -1,4 +1,4 @@
-#include "usefulfunctions.h"
+#include "./general/usefulfunctions.h"
 #include <cmath>
 
 void clearLayout(QLayout *layout, int from)

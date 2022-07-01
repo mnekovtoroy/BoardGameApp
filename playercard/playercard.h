@@ -1,9 +1,9 @@
 #ifndef PLAYERCARD_H
 #define PLAYERCARD_H
 
-#include "infocard.h"
+#include "./general/infocard.h"
 #include <QWidget>
-#include "player.h"
+#include "./playercard/player.h"
 
 class PlayerCard : public InfoCard
 {

@@ -1,4 +1,4 @@
-#include "stylehelper.h"
+#include "./general/stylehelper.h"
 
 
 QString stylehelper::getSideMenuStyle()

@@ -1,6 +1,6 @@
-#include "gamecard.h"
+#include "./gamecard/gamecard.h"
 #include <QtWidgets>
-#include "usefulfunctions.h"
+#include "./general/usefulfunctions.h"
 #include <QtSql>
 
 //constructor
