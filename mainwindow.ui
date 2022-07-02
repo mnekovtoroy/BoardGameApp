@@ -226,21 +226,21 @@ color: #000000;</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>GameCard</class>
+   <class>ItemList</class>
    <extends>QWidget</extends>
-   <header>gamecard.h</header>
+   <header>./general/itemlist.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ItemList</class>
+   <class>GameCard</class>
    <extends>QWidget</extends>
-   <header>itemlist.h</header>
+   <header>./gamecard/gamecard.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>PlayerCard</class>
    <extends>QWidget</extends>
-   <header>playercard.h</header>
+   <header>./playercard/playercard.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

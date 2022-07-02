@@ -20,6 +20,8 @@ SOURCES += \
     mainwindow.cpp \
     playercard/player.cpp \
     playercard/playercard.cpp \
+    playstab/playslistwidget.cpp \
+    playstab/playsminicard.cpp
 
 HEADERS += \
     gamecard/game.h \
@@ -32,6 +34,8 @@ HEADERS += \
     mainwindow.h \
     playercard/player.h \
     playercard/playercard.h \
+    playstab/playslistwidget.h \
+    playstab/playsminicard.h
 
 FORMS += \
     mainwindow.ui
