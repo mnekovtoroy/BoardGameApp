@@ -18,10 +18,11 @@ void PlaysMiniCard::mousePressEvent(QMouseEvent *event)
 }
 
 PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
-    : QWidget{parent}
+    : QFrame{parent}
 {
     this->play_id = play_id;
-    this->setStyleSheet("background-color: #FAFAFA;");
+    this->setStyleSheet("background-color: #FAFAFA;"
+                        "border-radius: 5px;");
 
     QSqlQuery queryDGD;
     queryDGD.prepare("SELECT play_game_expantion.play_id, game.name, play_game_expantion.expantion_id, play.play_date, play.description "
@@ -40,10 +41,12 @@ PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
     QSqlRecord recDGD = queryDGD.record();
 
     layout = new QHBoxLayout(this);
+    //layout->setSpacing(0);
 
     if (flags & showFlags::DATES) {
         date = new QLabel(queryDGD.value(recDGD.indexOf("play_date")).toString());
-        layout->addWidget(date);
+        date->setAlignment(Qt::AlignCenter);
+        layout->addWidget(date, 12);
         if (flags & (showFlags::DESCRIPTION | showFlags::WINNER | showFlags::PLAYERS | showFlags::GAME)) {
             addDelimiter();
         }
@@ -51,7 +54,9 @@ PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
 
     if (flags & showFlags::GAME) {
         game = new QLabel(queryDGD.value(recDGD.indexOf("name")).toString());
-        layout->addWidget(game);
+        game->setAlignment(Qt::AlignCenter);
+        game->setWordWrap(true);
+        layout->addWidget(game, 16);
         if (flags & (showFlags::DESCRIPTION | showFlags::WINNER | showFlags::PLAYERS)) {
             addDelimiter();
         }
@@ -66,7 +71,7 @@ PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
                              "WHERE take_part.play_id = :id;");
         queryPlayers.bindValue(":id",this->play_id);
         if (!queryPlayers.exec()) {
-            qDebug() << queryDGD.lastError();
+            qDebug() << queryPlayers.lastError();
             throw std::invalid_argument("Unable to select from `pge` table");
         }
         QSqlRecord recPlayers = queryPlayers.record();
@@ -77,6 +82,7 @@ PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
         players = new QVBoxLayout();
         while (queryPlayers.next()) {
             QLabel* player = new QLabel(queryPlayers.value(recPlayers.indexOf("name")).toString());
+            player->setAlignment(Qt::AlignCenter);
             players->addWidget(player);
             if (winner_points < queryPlayers.value(recPlayers.indexOf("points")).toInt()) {
                 winner_points = queryPlayers.value(recPlayers.indexOf("points")).toInt();
@@ -85,7 +91,7 @@ PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
         }
 
         if (flags & showFlags::PLAYERS) {
-            layout->addLayout(players);
+            layout->addLayout(players, 21);
             if (flags & (showFlags::DESCRIPTION | showFlags::WINNER)) {
                 addDelimiter();
             }
@@ -96,7 +102,8 @@ PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
 
         if (flags & showFlags::WINNER) {
             winner = new QLabel(winnerStr);
-            layout->addWidget(winner);
+            winner->setAlignment(Qt::AlignCenter);
+            layout->addWidget(winner, 28);
             if (flags & showFlags::DESCRIPTION) {
                 addDelimiter();
             }
@@ -106,7 +113,8 @@ PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
 
     if (flags & showFlags::DESCRIPTION) {
         description = new QLabel(queryDGD.value(recDGD.indexOf("description")).toString());
-        layout->addWidget(description);
+        description->setAlignment(Qt::AlignCenter);
+        layout->addWidget(description, 23);
     }
 }
 

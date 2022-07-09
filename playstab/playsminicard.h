@@ -13,7 +13,7 @@ enum showFlags {
     DESCRIPTION = 1 << 4
 };
 
-class PlaysMiniCard : public QWidget
+class PlaysMiniCard : public QFrame
 {
     Q_OBJECT
 private:

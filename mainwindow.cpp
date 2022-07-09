@@ -73,9 +73,6 @@ void MainWindow::on_SideList_currentItemChanged(QListWidgetItem *current, QListW
         ui->Window->setCurrentWidget(ui->Statistics);
     } else if (current->text()=="Настройки") {
         ui->Window->setCurrentWidget(ui->Settings);
-
-        NewPlayDialog* test = new NewPlayDialog();
-        test->exec();
     }
 }
 

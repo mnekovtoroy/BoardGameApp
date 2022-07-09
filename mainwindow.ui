@@ -81,80 +81,20 @@ color: #000000;</string>
      <string notr="true"/>
     </property>
     <widget class="QWidget" name="Plays">
-     <widget class="QWidget" name="verticalLayoutWidget">
+     <widget class="QStackedWidget" name="playsWidget">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>581</width>
-        <height>461</height>
+        <x>25</x>
+        <y>25</y>
+        <width>550</width>
+        <height>450</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="playsLayout">
-       <item>
-        <layout class="QHBoxLayout" name="head">
-         <item>
-          <widget class="QLabel" name="date">
-           <property name="text">
-            <string>Дата</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="game">
-           <property name="text">
-            <string>Игра</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="players">
-           <property name="text">
-            <string>Игроки</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="victor">
-           <property name="text">
-            <string>Победитель</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="comment">
-           <property name="text">
-            <string>Комментарий</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="addNewPlay">
-         <property name="text">
-          <string>Добавить новую партию</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QScrollArea" name="playList">
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>577</width>
-            <height>392</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="PlaysListWidget" name="playsListWidget"/>
+      <widget class="QWidget" name="playCard"/>
      </widget>
     </widget>
     <widget class="QWidget" name="Games">
@@ -241,6 +181,12 @@ color: #000000;</string>
    <class>PlayerCard</class>
    <extends>QWidget</extends>
    <header>./playercard/playercard.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlaysListWidget</class>
+   <extends>QWidget</extends>
+   <header>./playstab/playslistwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

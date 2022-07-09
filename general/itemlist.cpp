@@ -6,6 +6,8 @@ ItemList::ItemList(QWidget *parent)
     : QWidget{parent}
 {
     layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0,0,0,0);
+    layout->setSpacing(10);
 
     //Add item button
     createNewItem = new ItemButton(0);
@@ -17,10 +19,13 @@ ItemList::ItemList(QWidget *parent)
     itemsArea = new QScrollArea(this);
     itemsArea->setObjectName("itemsArea");
     itemsArea->setWidgetResizable(true); //IMPORTANT
+    itemsArea->setFrameShape(QFrame::NoFrame);
 
     scrollAreaContent = new QWidget(itemsArea);
     itemsLayout = new QVBoxLayout();
     itemsLayout->setObjectName("itemsLayout");
+    itemsLayout->setContentsMargins(0,0,0,0);
+    itemsLayout->setSpacing(5);
     scrollAreaContent->setLayout(itemsLayout);
 
     itemsArea->setWidget(scrollAreaContent);
