@@ -9,6 +9,7 @@
 #include <QtSql>
 #include <stdexcept>
 #include "./general/usefulfunctions.h"
+#include "./playstab/newplaydialog.h"
 
 
 
@@ -49,10 +50,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->playerCard,SIGNAL(playerCard_backButton_clicked()),this,SLOT(on_playerBackButton_clicked()));
 
 
-
-    //Players tab setup
-    ui->playersListWidget->update_items_list("player");
-
     setInterfaceStyle();
 
 }
@@ -76,6 +73,9 @@ void MainWindow::on_SideList_currentItemChanged(QListWidgetItem *current, QListW
         ui->Window->setCurrentWidget(ui->Statistics);
     } else if (current->text()=="Настройки") {
         ui->Window->setCurrentWidget(ui->Settings);
+
+        NewPlayDialog* test = new NewPlayDialog();
+        test->exec();
     }
 }
 

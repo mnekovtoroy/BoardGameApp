@@ -20,6 +20,7 @@ SOURCES += \
     mainwindow.cpp \
     playercard/player.cpp \
     playercard/playercard.cpp \
+    playstab/newplaydialog.cpp \
     playstab/playslistwidget.cpp \
     playstab/playsminicard.cpp
 
@@ -34,6 +35,7 @@ HEADERS += \
     mainwindow.h \
     playercard/player.h \
     playercard/playercard.h \
+    playstab/newplaydialog.h \
     playstab/playslistwidget.h \
     playstab/playsminicard.h
 
