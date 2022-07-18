@@ -15,8 +15,6 @@ private:
 protected:
     QHBoxLayout* headerLayout;
 
-
-
 public:
     QPushButton* backButton;
     QLineEdit* name;
