@@ -24,6 +24,12 @@ private:
 
 public slots:
     void set_play(int play_id);
+
+private slots:
+    void on_changeButton_clicked();
+    void cancel_changes();
+    void delete_player();
+    void add_player();
 };
 
 #endif // PLAYCARD_H

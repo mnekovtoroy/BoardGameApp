@@ -1,5 +1,8 @@
 #include "./playstab/playcard.h"
+#include "./general/usefulfunctions.h"
 #include <QtSql>
+
+static int playerLayoutId = 1;
 
 PlayCard::PlayCard()
 {
@@ -9,7 +12,7 @@ PlayCard::PlayCard()
     QPushButton* changeButton = new QPushButton("Изменить",this);
     changeButton->setObjectName("chagneButton");
     headerLayout->addWidget(changeButton);
-    //connect(changeButton,SIGNAL(clicked()),this,SLOT(on_changeButton_clicked()));
+    connect(changeButton,SIGNAL(clicked()),this,SLOT(on_changeButton_clicked()));
 
     //Game setup
     game_layout = new QHBoxLayout();
@@ -58,7 +61,7 @@ PlayCard::PlayCard()
 void PlayCard::set_play(int play_id)
 {
     QSqlQuery query;
-    query.prepare("SELECT play_game_expantion.play_id, game.name, play_game_expantion.expantion_id, play.play_date, play.description "
+    query.prepare("SELECT play_game_expantion.play_id, game.game_id, game.name, play_game_expantion.expantion_id, play.play_date, play.description "
                   "FROM play_game_expantion "
                   "JOIN play "
                   "ON play.play_id = play_game_expantion.play_id "
@@ -79,8 +82,24 @@ void PlayCard::set_play(int play_id)
     this->idLabel->setText(query.value(rec.indexOf("play_id")).toString());
 
     //Game
-    game->addItem(query.value(rec.indexOf("name")).toString());
-    game->setCurrentIndex(0);
+    //Fill game combobox
+    QSqlQuery queryAllGames;
+    queryAllGames.prepare("SELECT game.game_id, game.name "
+                          "FROM game; ");
+    queryAllGames.bindValue(":id", play_id);
+    if (!queryAllGames.exec()) {
+        qDebug() << queryAllGames.lastError();
+        throw std::invalid_argument("Unable to select from `pge` table");
+    }
+    QSqlRecord recAllGames;
+    recAllGames = queryAllGames.record();
+    game->addItem("<Выберете игру>");
+
+    while(queryAllGames.next()) {
+        game->addItem(queryAllGames.value(recAllGames.indexOf("name")).toString() + ", " + queryAllGames.value(recAllGames.indexOf("game_id")).toString());
+    }
+    //Set current game
+    game->setCurrentText(query.value(rec.indexOf("name")).toString() + ", " + query.value(rec.indexOf("game_id")).toString());
 
     //Date
     date->setText(query.value(rec.indexOf("play_date")).toString());
@@ -107,14 +126,16 @@ void PlayCard::set_play(int play_id)
 
 
     //Adding players layouts, one by one
+    playerLayoutId = 1;
     while (queryPlayers.next()) {
         QComboBox* player = new QComboBox();
+        player->setObjectName(QString::number(playerLayoutId));
         player->setEnabled(false);
 
         //Fill player combobox
         QSqlQuery queryAllPl;
         queryAllPl.prepare("SELECT player_id, name "
-                      "FROM player; ");
+                           "FROM player; ");
 
         if (!queryAllPl.exec()) {
             throw std::invalid_argument("Unable to select from `player` table");
@@ -142,20 +163,159 @@ void PlayCard::set_play(int play_id)
         points->setMaximumWidth(28);
         points->setReadOnly(true);
         points->setAlignment(Qt::AlignHCenter);
+        points->setObjectName(QString::number(playerLayoutId));
 
         QHBoxLayout* playerLayout = new QHBoxLayout();
         playerLayout->addWidget(player);
         QSpacerItem* spacer = new QSpacerItem(100,1);
         playerLayout->addSpacerItem(spacer);
-        //playerLayout->addStretch();
         playerLayout->addWidget(points);
+        playerLayout->setObjectName(QString::number(playerLayoutId));
         playerLayout->addStretch();
 
         players_list->addLayout(playerLayout);
+        playerLayoutId++;
     }
     winner->setText(winnerStr); //winner setup
 
 
 
 
+}
+
+void PlayCard::on_changeButton_clicked()
+{
+    //Set all stuff editable
+    //Description
+    description->setReadOnly(false);
+
+    //Game
+    game->setEnabled(true);
+
+    //Date
+    date->setReadOnly(false);
+
+    //Players
+    //players_list
+    for (int i = 0; i < players_list->count(); i++) {
+        QPushButton* deletePlayer = new QPushButton("X");
+        deletePlayer->setMaximumWidth(20);
+        deletePlayer->setObjectName(QString::number(i+1));
+        this->findChild<QHBoxLayout*>(QString::number(i+1))->insertWidget(3,deletePlayer);
+        //players_list->itemAt(i)->layout()->addWidget(deletePlayer);
+        connect(deletePlayer,SIGNAL(clicked()),this,SLOT(delete_player()));
+
+        this->findChild<QComboBox*>(QString::number(i+1))->setEnabled(true); //Player combobox
+        this->findChild<QLineEdit*>(QString::number(i+1))->setReadOnly(false); //Points
+
+    }
+    QHBoxLayout* newPlLayout = new QHBoxLayout();
+    QPushButton* addPlayer = new QPushButton("Добавить игрока");
+    newPlLayout->addWidget(addPlayer);
+    newPlLayout->addStretch();
+    connect(addPlayer,SIGNAL(clicked()),this,SLOT(add_player()));
+    players->addLayout(newPlLayout);
+
+    //delete change button
+    delete this->findChild<QPushButton*>("chagneButton");
+
+
+    //add all of control buttons
+    QPushButton* delete_player = new QPushButton("Удалить", this);
+    delete_player->setObjectName("delete");
+
+    QPushButton* cancel = new QPushButton("Отменить", this);
+    cancel->setObjectName("cancel");
+
+    QPushButton* save_player = new QPushButton("Сохранить", this);
+    save_player->setObjectName("save");
+
+    headerLayout->addWidget(delete_player);
+    headerLayout->addWidget(cancel);
+    headerLayout->addWidget(save_player);
+
+    connect(cancel,SIGNAL(clicked()),this,SLOT(cancel_changes()));
+    //connect(save_player,SIGNAL(clicked()),this,SLOT(save_changes()));
+    //connect(delete_player,SIGNAL(clicked()),this,SLOT(delete_player()));
+
+    //hide back button
+    backButton->hide();
+}
+
+void PlayCard::cancel_changes()
+{
+    backButton->show(); // show back button
+    clearLayout(headerLayout,3); // delete cancel, delete and save buttons
+
+    //Adding back change button
+    QPushButton* changeButton = new QPushButton("Изменить",this);
+    changeButton->setObjectName("chagneButton");
+    headerLayout->addWidget(changeButton);
+    connect(changeButton,SIGNAL(clicked()),this,SLOT(on_changeButton_clicked()));
+
+    //set all stuff uneditable
+    description->setReadOnly(true); //Description
+    game->setEnabled(false); //Game
+    date->setReadOnly(true); //Date
+    clearLayout(players_list); //Players - clering layout cause it will load again
+    clearLayout(players,2); //clear new player button
+
+
+    this->set_play(this->idLabel->text().toInt());
+}
+
+void PlayCard::delete_player()
+{
+    int id = sender()->objectName().toInt(); //player layout id stored in the sender button name
+    QHBoxLayout* player = this->findChild<QHBoxLayout*>(QString::number(id));
+    clearLayout(player);
+    delete player;
+}
+
+void PlayCard::add_player()
+{
+    QHBoxLayout* playerLayout = new QHBoxLayout();
+    playerLayout->setObjectName(QString::number(playerLayoutId)); //generating unice id for this layout so it can be easily deleted
+
+    QComboBox* player = new QComboBox();
+    player->setObjectName(QString::number(playerLayoutId));
+    playerLayout->addWidget(player);
+    playerLayout->addSpacerItem(new QSpacerItem(100,1));
+
+    QLineEdit* points = new QLineEdit();
+    points->setPlaceholderText("...");
+    points->setMaximumWidth(28);
+    points->setAlignment(Qt::AlignHCenter);
+    points->setObjectName(QString::number(playerLayoutId));
+    playerLayout->addWidget(points);
+
+
+    QPushButton* deletePlayer = new QPushButton("X");
+    deletePlayer->setMaximumWidth(20);
+    deletePlayer->setObjectName(QString::number(playerLayoutId)); //layout id will be stored in this button name so it will be reachable
+    playerLayout->addWidget(deletePlayer);
+    playerLayout->addStretch();
+
+    connect(deletePlayer,SIGNAL(clicked()),this,SLOT(delete_player()));
+
+
+    //Fill player combobox
+    QSqlQuery query;
+    query.prepare("SELECT player_id, name "
+                  "FROM player; ");
+
+    if (!query.exec()) {
+        throw std::invalid_argument("Unable to select from `player` table");
+    }
+
+    QSqlRecord rec;
+    rec = query.record();
+    player->addItem("<Выберете игрока>");
+    while(query.next()) {
+        player->addItem(query.value(rec.indexOf("name")).toString() + ", " + query.value(rec.indexOf("player_id")).toString());
+    }
+
+    players_list->addLayout(playerLayout);
+
+    playerLayoutId++;
 }
