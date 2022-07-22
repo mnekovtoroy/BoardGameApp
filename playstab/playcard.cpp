@@ -7,6 +7,7 @@ static int playerLayoutId = 1;
 PlayCard::PlayCard()
 {
     name->setText("Партия"); //Since header is always the same
+    connect(backButton,SIGNAL(clicked()),this,SLOT(on_backButton_clicked()));
 
     //Adding change button
     QPushButton* changeButton = new QPushButton("Изменить",this);
@@ -221,22 +222,22 @@ void PlayCard::on_changeButton_clicked()
 
 
     //add all of control buttons
-    QPushButton* delete_player = new QPushButton("Удалить", this);
-    delete_player->setObjectName("delete");
+    QPushButton* delete_play = new QPushButton("Удалить", this);
+    delete_play->setObjectName("delete");
 
     QPushButton* cancel = new QPushButton("Отменить", this);
     cancel->setObjectName("cancel");
 
-    QPushButton* save_player = new QPushButton("Сохранить", this);
-    save_player->setObjectName("save");
+    QPushButton* save_play = new QPushButton("Сохранить", this);
+    save_play->setObjectName("save");
 
-    headerLayout->addWidget(delete_player);
+    headerLayout->addWidget(delete_play);
     headerLayout->addWidget(cancel);
-    headerLayout->addWidget(save_player);
+    headerLayout->addWidget(save_play);
 
     connect(cancel,SIGNAL(clicked()),this,SLOT(cancel_changes()));
-    //connect(save_player,SIGNAL(clicked()),this,SLOT(save_changes()));
-    //connect(delete_player,SIGNAL(clicked()),this,SLOT(delete_player()));
+    connect(save_play,SIGNAL(clicked()),this,SLOT(save_changes()));
+    connect(delete_play,SIGNAL(clicked()),this,SLOT(delete_play()));
 
     //hide back button
     backButton->hide();
@@ -262,6 +263,86 @@ void PlayCard::cancel_changes()
 
 
     this->set_play(this->idLabel->text().toInt());
+}
+
+void PlayCard::save_changes()
+{
+    QSqlQuery query;
+    query.prepare("UPDATE play "
+                  "SET play_date = :date, description = :desc "
+                  "WHERE play_id = :id;");
+    query.bindValue(":date",date->text());
+    query.bindValue(":desc", description->toPlainText());
+    query.bindValue(":id", idLabel->text());
+    if (!query.exec()) {
+        qDebug() << query.lastError();
+        throw std::invalid_argument("Unable to update `play` table");
+    }
+
+    query.prepare("UPDATE play_game_expantion "
+                  "SET game_id = :game_id "
+                  "WHERE play_id = :play_id;");
+    query.bindValue(":game_id", get_last_number(game->currentText()));
+    query.bindValue(":play_id", idLabel->text());
+    if (!query.exec()) {
+        qDebug() << query.lastError();
+        throw std::invalid_argument("Unable to update `pge` table");
+    }
+
+    query.prepare("DELETE FROM take_part "
+                  "WHERE play_id = :id;");
+    query.bindValue(":id", idLabel->text());
+    if (!query.exec()) {
+        qDebug() << query.lastError();
+        throw std::invalid_argument("Unable to delete from `take_part` table");
+    }
+
+    for(int i = 0; i < players_list->count(); i++) {
+        query.prepare("INSERT INTO take_part "
+                      "VALUES (:play_id, :player_id, :points)");
+        QString currPlayerLayoutId = players_list->itemAt(i)->layout()->objectName();
+        query.bindValue(":play_id", idLabel->text());
+        query.bindValue(":player_id", get_last_number(this->findChild<QComboBox*>(currPlayerLayoutId)->currentText()));
+        query.bindValue(":points",this->findChild<QLineEdit*>(currPlayerLayoutId)->text().toInt());
+        if (!query.exec()) {
+            qDebug() << query.lastError();
+            throw std::invalid_argument("Unable to insert into `take_part` table");
+        }
+    }
+
+    cancel_changes();
+
+}
+
+void PlayCard::delete_play()
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM play "
+                  "WHERE play_id = :id;");
+    query.bindValue(":id", idLabel->text());
+    if (!query.exec()) {
+        qDebug() << query.lastError();
+        throw std::invalid_argument("Unable to delete from `play` table");
+    }
+
+    query.prepare("DELETE FROM play_game_expantion "
+                  "WHERE play_id = :id;");
+    query.bindValue(":id", idLabel->text());
+    if (!query.exec()) {
+        qDebug() << query.lastError();
+        throw std::invalid_argument("Unable to delete from `play_game_expantion` table");
+    }
+
+    query.prepare("DELETE FROM take_part "
+                  "WHERE play_id = :id;");
+    query.bindValue(":id", idLabel->text());
+    if (!query.exec()) {
+        qDebug() << query.lastError();
+        throw std::invalid_argument("Unable to delete from `take_part` table");
+    }
+
+    on_backButton_clicked();
+
 }
 
 void PlayCard::delete_player()
@@ -318,4 +399,9 @@ void PlayCard::add_player()
     players_list->addLayout(playerLayout);
 
     playerLayoutId++;
+}
+
+void PlayCard::on_backButton_clicked()
+{
+    emit playCard_backButton_clicked();
 }

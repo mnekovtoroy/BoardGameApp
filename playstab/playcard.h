@@ -28,8 +28,14 @@ public slots:
 private slots:
     void on_changeButton_clicked();
     void cancel_changes();
+    void save_changes();
+    void delete_play();
     void delete_player();
     void add_player();
+    void on_backButton_clicked();
+
+signals:
+    void playCard_backButton_clicked();
 };
 
 #endif // PLAYCARD_H
