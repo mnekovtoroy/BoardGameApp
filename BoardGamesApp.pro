@@ -60,6 +60,7 @@ RESOURCES += \
 
 DISTFILES += \
     .gitignore \
+    readme.md \
     sources/fonts/Montserrat-Medium.ttf \
     sources/fonts/Montserrat-Regular.ttf \
     todolist.txt
