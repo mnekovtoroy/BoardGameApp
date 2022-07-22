@@ -114,6 +114,7 @@ PlaysMiniCard::PlaysMiniCard(QWidget *parent, int play_id, showFlags flags)
     if (flags & showFlags::DESCRIPTION) {
         description = new QLabel(queryDGD.value(recDGD.indexOf("description")).toString());
         description->setAlignment(Qt::AlignCenter);
+        description->setWordWrap(true);
         layout->addWidget(description, 23);
     }
 }

@@ -53,7 +53,9 @@ void PlaysListWidget::update_plays_list()
     }
 
     while(query.next()) {
-        plays_list_layout->addWidget(new PlaysMiniCard(this,query.value(0).toInt()));
+        PlaysMiniCard* miniCard = new PlaysMiniCard(this,query.value(0).toInt());
+        connect(miniCard,SIGNAL(clicked()),this,SLOT(on_play_miniCard_clicked()));
+        plays_list_layout->addWidget(miniCard);
     }
     plays_list_layout->addStretch();
 }
@@ -64,4 +66,9 @@ void PlaysListWidget::new_play_button_clicked()
     if (new_play_form->exec() == QDialog::Accepted) {
         update_plays_list();
     }
+}
+
+void PlaysListWidget::on_play_miniCard_clicked()
+{
+    emit play_miniCard_clicked(qobject_cast<PlaysMiniCard*>(sender())->get_play_id());
 }

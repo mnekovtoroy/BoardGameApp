@@ -341,8 +341,23 @@ void PlayCard::delete_play()
         throw std::invalid_argument("Unable to delete from `take_part` table");
     }
 
-    on_backButton_clicked();
+    backButton->show(); // show back button
+    clearLayout(headerLayout,3); // delete cancel, delete and save buttons
 
+    //Adding back change button
+    QPushButton* changeButton = new QPushButton("Изменить",this);
+    changeButton->setObjectName("chagneButton");
+    headerLayout->addWidget(changeButton);
+    connect(changeButton,SIGNAL(clicked()),this,SLOT(on_changeButton_clicked()));
+
+    //set all stuff uneditable
+    description->setReadOnly(true); //Description
+    game->setEnabled(false); //Game
+    date->setReadOnly(true); //Date
+    clearLayout(players_list); //Players - clering layout cause it will load again
+    clearLayout(players,2); //clear new player button
+
+    on_backButton_clicked();
 }
 
 void PlayCard::delete_player()
@@ -403,5 +418,6 @@ void PlayCard::add_player()
 
 void PlayCard::on_backButton_clicked()
 {
+    clearLayout(players_list);
     emit playCard_backButton_clicked();
 }

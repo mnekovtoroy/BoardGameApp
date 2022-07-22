@@ -94,7 +94,7 @@ color: #000000;</string>
        <number>0</number>
       </property>
       <widget class="PlaysListWidget" name="playsListWidget"/>
-      <widget class="QWidget" name="playCard"/>
+      <widget class="PlayCard" name="playCard"/>
      </widget>
     </widget>
     <widget class="QWidget" name="Games">
@@ -187,6 +187,12 @@ color: #000000;</string>
    <class>PlaysListWidget</class>
    <extends>QWidget</extends>
    <header>./playstab/playslistwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlayCard</class>
+   <extends>QWidget</extends>
+   <header>./playstab/playcard.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

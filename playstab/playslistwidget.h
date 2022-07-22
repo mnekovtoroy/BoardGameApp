@@ -18,13 +18,17 @@ private:
     QWidget* scrollAreaContent;
     QVBoxLayout* plays_list_layout;
 
+public:
     void update_plays_list();
 
 private slots:
     void new_play_button_clicked();
 
-signals:
+public slots:
+    void on_play_miniCard_clicked();
 
+signals:
+    void play_miniCard_clicked(int);
 };
 
 #endif // PLAYSLISTWIDGET_H

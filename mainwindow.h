@@ -20,7 +20,9 @@ private slots:
     void on_gameBackButton_clicked();
     void game_selected(int id);
     void player_selected(int id);
+    void play_selected(int id);
     void on_playerBackButton_clicked();
+    void on_playBackButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -30,5 +32,6 @@ signals:
     void send_game_ID(int);
     void game_tab_selected();
     void send_player_ID(int);
+    //void send_play_ID(int);
 };
 #endif // MAINWINDOW_H
